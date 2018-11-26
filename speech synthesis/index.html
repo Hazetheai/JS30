@@ -29,6 +29,8 @@
     </div>
 
 <script>
+
+  //set variables
   const msg = new SpeechSynthesisUtterance();
   let voices = [];
   const voicesDropdown = document.querySelector('[name="voice"]');
@@ -36,8 +38,12 @@
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
 
+
+  //the text we are speaking
   msg.text = document.querySelector('[name="text"]').value;
 
+
+  //put voices from Chromes APi into list
   function populateVoices() {
       voices = this.getVoices();
       voicesDropdown.innerHTML  = voices
@@ -46,19 +52,21 @@
         .join('');
   }
 
+
+  //set the voice
   function setVoice() {
       msg.voice = voices.find(voice => voice.name === this.value);
       console.log(msg);
 
  }
-
+  //restart phrase if interrupted
    function toggle(startOver = true) {
     speechSynthesis.cancel();
     if (startOver) {
       speechSynthesis.speak(msg);
     }
   }
-
+  // choose options
   function setOption() {
       console.log(this.name, this.value);
       msg[this.name] = this.value;
